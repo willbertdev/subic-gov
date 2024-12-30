@@ -1,0 +1,13 @@
+name: User Activity Log
+description: Create a User Activity Log module block
+package: User
+type: module
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:comment
+
+# Information added by Drupal.org packaging script on 2024-04-01
+version: '8.x-1.10'
+project: 'user_activity_log'
+datestamp: 1711945149

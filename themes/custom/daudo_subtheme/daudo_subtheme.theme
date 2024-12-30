@@ -1,0 +1,6 @@
+<?php
+
+function daudo_subtheme_preprocess_html(&$variables) {
+  $variables['#attached']['library'][] = 'daudo_subtheme/daudo_subtheme.skin.default';
+
+}
