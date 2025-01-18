@@ -5,9 +5,4 @@ dependencies:
   - drupal:requirements1_test
   - drupal:comment
 package: Testing
-# version: VERSION
-
-# Information added by Drupal.org packaging script on 2024-09-12
-version: '11.0.4'
-project: 'drupal'
-datestamp: 1726136530
+version: VERSION

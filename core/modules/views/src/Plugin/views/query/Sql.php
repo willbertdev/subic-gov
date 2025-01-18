@@ -170,7 +170,7 @@ class Sql extends QueryPluginBase {
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
+   *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -376,10 +376,10 @@ class Sql extends QueryPluginBase {
    * relationship.
    *
    * An example of a relationship would be a node reference table.
-   * If you have a node reference named 'content_parent' which links to a
-   * parent node, you could set up a relationship 'node_content_parent'
+   * If you have a node reference named 'book_parent' which links to a
+   * parent node, you could set up a relationship 'node_book_parent'
    * to 'node'. Then, anything that links to 'node' can link to
-   * 'node_content_parent' instead, thus allowing all properties of
+   * 'node_book_parent' instead, thus allowing all properties of
    * both nodes to be available in the query.
    *
    * @param $alias

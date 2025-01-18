@@ -5,12 +5,14 @@
  * Responsive image display formatter for image fields.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+use Drupal\responsive_image\ResponsiveImageConfigUpdater;
 use Drupal\responsive_image\ResponsiveImageStyleInterface;
 use Drupal\breakpoint\BreakpointInterface;
 
@@ -142,7 +144,7 @@ function template_preprocess_responsive_image_formatter(&$variables) {
 function template_preprocess_responsive_image(&$variables) {
   // Make sure that width and height are proper values
   // If they exists we'll output them
-  // @see http://www.w3.org/community/respimg/2012/06/18/florians-compromise/
+  // @see https://www.w3.org/community/respimg/2012/06/18/florians-compromise/
   if (isset($variables['width']) && empty($variables['width'])) {
     unset($variables['width']);
     unset($variables['height']);
@@ -350,7 +352,7 @@ function template_preprocess_responsive_image(&$variables) {
  * @code
  * <source [...] sizes="(min-width: 40em) 80vw, 100vw" srcset="b1.jpeg 250w, a1.jpeg 300w, a2.jpeg 600w, b2.jpeg 680w, a3.jpeg 1200w,  b3.jpeg 1240w" />
  * @endcode
- * See http://www.w3.org/html/wg/drafts/html/master/embedded-content.html#image-candidate-string
+ * See https://www.w3.org/html/wg/drafts/html/master/embedded-content.html#image-candidate-string
  * for further information.
  *
  * @param array $variables
@@ -545,4 +547,13 @@ function responsive_image_library_info_alter(array &$libraries, $module) {
   if ($module === 'core' && isset($libraries['drupal.ajax'])) {
     $libraries['drupal.ajax']['dependencies'][] = 'responsive_image/ajax';
   }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave() for entity_view_display.
+ */
+function responsive_image_entity_view_display_presave(EntityViewDisplayInterface $view_display): void {
+  /** @var \Drupal\responsive_image\ResponsiveImageConfigUpdater $config_updater */
+  $config_updater = \Drupal::classResolver(ResponsiveImageConfigUpdater::class);
+  $config_updater->processResponsiveImageField($view_display);
 }

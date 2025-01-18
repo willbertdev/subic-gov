@@ -43,7 +43,7 @@ class NoMultilingualReviewPageTest extends NoMultilingualReviewPageTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function getSourceBasePath() {
+  protected function getSourceBasePath(): string {
     return __DIR__ . '/files';
   }
 
@@ -107,6 +107,8 @@ class NoMultilingualReviewPageTest extends NoMultilingualReviewPageTestBase {
       'Taxonomy',
       'Text',
       'Throttle',
+      // @todo Remove tracker in https://www.drupal.org/project/drupal/issues/3261452
+      'Tracker',
       'Trigger',
       'Update status',
       'Upload',
@@ -155,7 +157,6 @@ class NoMultilingualReviewPageTest extends NoMultilingualReviewPageTestBase {
       'String translation',
       'Synchronize translations',
       'Taxonomy translation',
-      'Tracker',
       'Views',
       'Views translation',
     ];

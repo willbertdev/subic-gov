@@ -132,7 +132,6 @@ function navigation_theme($existing, $type, $theme, $path) {
 
   $items['menu_region__footer'] = [
     'variables' => [
-      'help' => NULL,
       'items' => [],
       'title' => NULL,
       'menu_name' => NULL,
@@ -159,7 +158,9 @@ function navigation_menu_links_discovered_alter(&$links) {
 function navigation_block_build_local_tasks_block_alter(array &$build, BlockPluginInterface $block) {
   $navigation_renderer = \Drupal::service('navigation.renderer');
   assert($navigation_renderer instanceof NavigationRenderer);
-  $navigation_renderer->removeLocalTasks($build, $block);
+  if (\Drupal::currentUser()->hasPermission('access navigation')) {
+    $navigation_renderer->removeLocalTasks($build, $block);
+  }
 }
 
 /**
@@ -200,6 +201,7 @@ function navigation_block_alter(&$definitions): void {
     'navigation_user',
     'navigation_shortcuts',
     'navigation_menu',
+    'navigation_link',
   ];
   foreach ($hidden as $block_id) {
     if (isset($definitions[$block_id])) {
